@@ -1,14 +1,13 @@
 import React, { PropTypes } from 'react';
 import axios from 'axios';
-// import request from 'superagent';
 import { Accordion, AccordionItem } from 'react-sanfona';
-
-
+import BuckeList from './BucketList';
+import Items from './Items';
 
 class BucketListsPage extends React.Component {
     constructor() {
         super();
-        this.state = {"new" :[],"bc": []};
+        this.state = { "pages": [], "bucketlists": [] };
         this.fetch = this.fetch.bind(this);
     }
     componentDidMount() {
@@ -16,41 +15,32 @@ class BucketListsPage extends React.Component {
         this.fetch();
     }
 
-  fetch() {
-    const config  = {
-            headers: {'Authorization': localStorage.getItem("Authorization")}};
+    fetch() {
+        const config = {
+            headers: { 'Authorization': localStorage.getItem("Authorization") }
+        };
         const url = 'http://127.0.0.1:5000/bucketlists/';
 
-        axios.get(url, config)
-        .then(response => {
-        console.log(response.data.bucketlists);
-            
-            this.setState({
-                pages: response.data.pages,
-                new: response.data.bucketlists
+        return axios.get(url, config)
+            .then(response => {
+                // console.log(response.data.bucketlists);
+                this.setState({
+                    pages: response.data.pages,
+                    bucketlists: response.data.bucketlists
+                });
+            })
+            .catch(error => {
+                console.log(error);
             });
-            
-        })
-        .catch(error => {
-            console.log(error);
-        });
-  }
+    }
 
     render() {
         return (
-            <div className="jumbotron">
-            <Accordion className="list-group">
-				{this.state.new.map(function(bucket) {
-					return (
-						<AccordionItem title={bucket.title} key={bucket.bucketlist_id} className="list-group-item" expandedClassName="active">
-							<div>
-								{bucket.bucketlist_id}
-							</div>
-						</AccordionItem>
-					);
-				})}
-			</Accordion>
-            </div>
+            <div className="container">
+                <hr />
+                <br />
+                <BuckeList bucketlists={this.state.bucketlists} />
+            </div >
         );
 
     }
