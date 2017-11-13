@@ -11,7 +11,6 @@ class BucketListsPage extends React.Component {
         this.fetch = this.fetch.bind(this);
     }
     componentDidMount() {
-        // console.log("component did mount");
         this.fetch();
     }
 
@@ -23,7 +22,6 @@ class BucketListsPage extends React.Component {
 
         return axios.get(url, config)
             .then(response => {
-                // console.log(response.data.bucketlists);
                 this.setState({
                     pages: response.data.pages,
                     bucketlists: response.data.bucketlists
