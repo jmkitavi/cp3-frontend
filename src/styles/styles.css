@@ -1,0 +1,20 @@
+#app {
+    font: 14px;
+    color: #4d4d4d;
+    min-width: 550px;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+a.active {
+    color: darkorange;
+}
+active {
+    text-color: darkorange;
+    background-color: darkorange;
+    
+}
+
+nav {
+    padding-top: 20px;
+}
